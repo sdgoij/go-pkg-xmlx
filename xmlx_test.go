@@ -159,3 +159,16 @@ func TestString(t *testing.T) {
 		t.Fatalf("expected: %s\ngot: %s\n", expected, got)
 	}
 }
+
+func TestNodeS(t *testing.T) {
+	data := "<car><color>red</color><brand>BMW</brand></car>"
+	doc := New()
+
+	if err := doc.LoadString(data, nil); nil != err {
+		t.Fatalf("LoadString(): %s", err)
+	}
+
+	if v := doc.SelectNode("", "car").S("", "brand"); v != "BMW" {
+		t.Fatalf("Unexpected value: '%s'", v)
+	}
+}
